@@ -1,0 +1,283 @@
+/* Reset & Grundstyles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  color: #000000;
+  line-height: 1.6;
+  padding-top: 80px; /* Passe den Wert an die tatsächliche Headerhöhe an */
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  z-index: 100;
+}
+
+.header-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Container für Zahlen und Textabschnitte */
+.scroll-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Sticky Zahlen-Container */
+.numbers-container {
+  position: sticky;
+  top: 100px;
+  width: 300px;
+  height: 10rem; /* Höhe entspricht der Zahlengröße */
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Gestaltung der Zahlen */
+.number {
+  position: absolute;
+  left: 10vw;
+  top: 0;
+  transform: translateX(-50%) translateY(100%);
+  font-size: 5rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Aktive Zahl */
+.number.active {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Exit-Animation */
+.number.exit {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 0;
+}
+
+/* Container der Textabschnitte */
+.text-sections {
+  flex: 1;
+}
+
+/* Jeder Textabschnitt erhält volle Viewporthöhe */
+.text-section {
+  height: 100vh;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  padding-top: 50px;
+  padding-right: 5vw;
+  width: 80vw;
+}
+
+/* Inhalt im Abschnitt */
+.section-content {
+  max-width: 90vw;
+  width: 100%;
+}
+
+/* Horizontaler Strich */
+.section-line {
+  border: none;
+  height: 3px;
+  background: #000;
+  margin: 0 0 20px;
+}
+
+/* Flexbox für Überschrift und Text */
+.section-body {
+  display: flex;
+  gap: 200px;
+  align-items: flex-start;
+}
+
+/* Überschrift */
+.section-header {
+  flex: 0 0 auto;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Fließtext im Blocksatz */
+.section-text {
+  flex: 1;
+  text-align: justify;
+}
+
+.section-text p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Overlay für Frage-Text und Antwortmöglichkeiten */
+.question-overlay {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 35%;
+  max-width: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0));
+  color: #fff;
+  padding: 100px;
+  display: none;
+  z-index: 20;
+}
+
+.overlay-content p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.answer-btn {
+  border: 2px solid #ffffff;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  transition: background 0.3s;
+}
+
+.answer-btn:hover {
+  background: #cacaca;
+}
+
+/* Footer-Styles */
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  z-index: 30;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+  padding: 0 5%;
+  padding-bottom: 2%;
+}
+
+.footer-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Musik Button */
+.music-button {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bars-container {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.music-button .bar {
+  width: 2px;
+  height: 20px;
+  background: #000;
+  transform-origin: bottom;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+.music-button.stopped .bar {
+  animation-play-state: paused;
+  transform: scaleY(0.1) !important;
+}
+
+/* Cursor Mask */
+.cursor-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: white;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* About Modal Overlay – gleicht exakt den anderen Textabschnitten */
+.about-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  display: none;
+  z-index: 25;
+  overflow-y: auto;
+  padding: 50px;
+}
+
+/* Close-Button, der wie eine .number positioniert wird */
+.about-modal .number.about-close {
+  position: absolute;
+  left: 10vw;
+  top: 0;
+  transform: translateX(-50%) translateY(0);
+  font-size: 5rem;
+  font-weight: bold;
+  opacity: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+.about-modal .number.about-close:focus {
+  outline: none;
+}

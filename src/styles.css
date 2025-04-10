@@ -1,0 +1,373 @@
+
+/* Reset & Grundstyles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  color: #000000;
+  line-height: 1.6;
+  padding-top: 80px; /* Passe den Wert an die tatsächliche Headerhöhe an */
+  
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: none; /* oder transparent */
+  padding: 20px;
+  text-align: center;
+  z-index: 100;
+}
+
+.header-link{
+  color: inherit;       /* Erbt die Farbe des umgebenden Elements */
+  text-decoration: none; /* Entfernt den Unterstrich */
+  text-transform: uppercase;  
+}
+
+/* Container für Zahlen und Textabschnitte */
+.scroll-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Sticky Zahlen-Container */
+.numbers-container {
+  position: sticky;
+  top: 100px;
+  width: 300px;
+  height: 10rem;          /* Höhe entspricht der Zahlengröße */
+  margin: 0 auto;
+  overflow: hidden;       /* Verhindert, dass animierte Zahlen außerhalb sichtbar sind */
+}
+
+/* Gestaltung der Zahlen */
+.number {
+  position: absolute;
+  left: 10vw;
+  top: 0;
+  transform: translateX(-50%) translateY(100%); /* Start außerhalb (unten) */
+  font-size: 5rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Aktive Zahl */
+.number.active {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Exit-Animation: Zahl fährt nach oben */
+.number.exit {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 0;
+}
+
+/* Container der Textabschnitte */
+.text-sections {
+  flex: 1;
+}
+
+/* Jeder Textabschnitt erhält volle Viewporthöhe */
+.text-section {
+  height: 100vh;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  padding-top: 50px;
+  padding-right: 5vw;
+  width: 80vw;
+}
+
+/* Inhalt im Abschnitt */
+.section-content {
+  max-width: 90vw;
+  width: 100%;
+}
+
+/* Horizontaler Strich oberhalb von Text und Überschrift */
+.section-line {
+  border: none;
+  height: 3px;
+  background: #000;
+  margin: 0 0 20px;
+}
+
+/* Flexbox für Überschrift und Text */
+.section-body {
+  display: flex;
+  gap: 200px;
+  align-items: flex-start;
+}
+
+/* Überschrift */
+.section-header {
+  flex: 0 0 auto;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Fließtext im Blocksatz */
+.section-text {
+  flex: 1;
+  text-align: justify;
+}
+
+.section-text p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+#three-container {
+  position: sticky; /* oder auch fixed */
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+}
+
+/* Canvas füllt den Container */
+#three-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+
+/* Scroll-Spacer für die Türanimation */
+#door-scroll-spacer {
+  height: 150vh;
+}
+  
+/* Overlay für Frage-Text und Antwortmöglichkeiten */
+.question-overlay {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 35%;
+  max-width: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0));
+  color: #fff;
+  padding: 100px;
+  display: none;
+  z-index: 20;
+}
+
+
+.overlay-content p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.answer-btn {
+  border: 2px solid #ffffff;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  background: transparent;
+  color: #fff; /* Textfarbe weiß */
+}
+
+.answer-btn:hover {
+  background: #cacaca;
+}
+
+/* Footer-Styles */
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Elemente werden an den Rändern platziert */
+  padding: 5px 0;
+  z-index: 30;
+  font-family: Arial, sans-serif;
+
+}
+
+.footer-center {
+  text-align: center;
+  flex: 1;
+  padding-bottom: 2%;
+}
+
+.footer-left {
+  text-align: left;
+  padding-left: 5%;
+  padding-bottom: 2%;
+}
+
+.footer-right {
+  text-align: right;
+  padding-right: 5%;
+  padding-bottom: 2%;
+}
+
+/* Footer Link */
+.footer-link {
+  color: inherit;       /* Erbt die Farbe des umgebenden Elements */
+  text-decoration: none; /* Entfernt den Unterstrich */
+}
+
+/* Musik Button */
+.music-button {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 2px transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bars-container {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end; /* sorgt dafür, dass die Balken am unteren Rand ansetzen */
+}
+
+/* Balken */
+.music-button .bar {
+  width: 2px;
+  /* Setze die maximale Höhe als feste Basis, die dann skaliert wird */
+  height: 20px;
+  background: #000000;
+  /* Transformation soll vom unteren Rand aus starten */
+  transform-origin: bottom;
+  animation: pulse 1s infinite;
+  transition: transform 0.3s ease;
+}
+
+/* Gleich wie bisher: fünf Balken mit individuellen Animation-Delays */
+.music-button .bar:nth-child(1) { left: 10px; animation-delay: 0s; }
+.music-button .bar:nth-child(2) { left: 18px; animation-delay: 0.2s; }
+.music-button .bar:nth-child(3) { left: 26px; animation-delay: 0.4s; }
+.music-button .bar:nth-child(4) { left: 34px; animation-delay: 0.6s; }
+.music-button .bar:nth-child(5) { left: 42px; animation-delay: 0.8s; }
+
+@keyframes pulse {
+  /* 
+    Statt die Höhe direkt zu animieren, wird hier skaliert.
+    Der Wert 0.25 entspricht dabei 5px (0.25 * 20px) und 1 entspricht 20px.
+  */
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+/* Gestoppte Version */
+.music-button.stopped .bar {
+  animation-play-state: paused;
+  transform: scaleY(0.1) !important;
+}
+
+/* Cursor-Mask: folgt dem Mauszeiger, invertiert den darunterliegenden Content pixelgenau */
+.cursor-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100px;      /* Durchmesser, passe dies nach Belieben an */
+  height: 100px;
+  border-radius: 50%;
+  background: white; /* Wichtig: Für den Unterschiedseffekt */
+  mix-blend-mode: difference;
+  pointer-events: none; /* Verhindert, dass die Maske Mouseevents blockiert */
+  transform: translate(-50%, -50%);  /* Damit der Mittelpunkt dem Cursor entspricht */
+  z-index: 9999;
+  will-change: transform;  /* Für eine flüssigere Animation */
+}
+
+/* About Modal Overlay – nimmt den gesamten Bildschirm ein */
+/* About Modal Overlay – übernimmt die gleiche Struktur wie die normalen Text-Sections */
+.about-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  display: none;       /* Standardmäßig ausgeblendet */
+  z-index: 25;         /* Oberhalb des regulären Inhalts, aber unter Header (100) und Footer (30) */
+  overflow-y: auto;
+  /* Wir verwenden hier KEINE extra Padding-Regel, da die .text-content im Overlay dieselbe Struktur wie der Hauptbereich hat */
+}
+
+/* Zusätzlicher Abstand oben nur i sm About-Bereich */
+.about-modal .section-content {
+  padding-top: 70px; /* passe den Wert nach Bedarf an */
+}
+
+
+/* Der Close-Button – exakt wie eine .number positioniert */
+.about-modal .number.about-close {
+  position: absolute;
+  left: 10vw;
+  top: 0;
+  transform: translateX(-50%) translateY(0); /* Direkt sichtbar */
+  font-size: 5rem;
+  font-weight: bold;
+  opacity: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+.about-modal .number.about-close:focus {
+  outline: none;
+}
+
+/* Bild in der section-text passt sich der Containerbreite an */
+.section-text img.section-image {
+  display: block;  /* Entfernt eventuelle Leerzeichen, die inline-Elemente verursachen */
+  width: 100%;     /* Bild füllt den verfügbaren Platz im Container */
+  height: auto;    /* Beibehaltung des Seitenverhältnisses */
+}
+
+/* Stelle sicher, dass die dritte Section relativ positioniert ist */
+.text-section#section3 {
+  position: relative;
+}
+
+/* Style für den Hinweis: absolut am unteren Rand zentriert */
+.game-info {
+  position: absolute;
+  bottom: 20px;         /* Abstand vom unteren Rand (anpassen nach Bedarf) */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;    /* kleine Schriftgröße */
+  text-align: center;
+  width: 100%;
+  color: #000;          /* Farbe, anpassbar an Dein Design */
+}
