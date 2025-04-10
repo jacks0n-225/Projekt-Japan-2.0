@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tür-Scroll Animation mit Three.js World</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-background">
+        <a href="index.html" class="header-link"><h1 class="header-title">Zugzwang</h1></a>
+      </div>
+    </header>
+    
+    <div class="text-content">
+      <div class="scroll-container">
+        <!-- Sticky Zahlen-Container -->
+        <div class="numbers-container">
+          <div class="number" id="num1">1</div>
+          <div class="number" id="num2">2</div>
+          <div class="number" id="num3">3</div>
+        </div>
+        <!-- Scrollbare Textabschnitte -->
+        <div class="text-sections">
+          <!-- Abschnitt 1 -->
+          <section class="text-section" id="section1">
+            <div class="section-content">
+              <!-- Horizontaler Strich -->
+              <hr class="section-line" />
+              <!-- Inhalt: Überschrift + Fließtext -->
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Viel Spaß!</h2>
+                </div>
+                <div class="section-text">
+                  <p>Dieses interaktive Web-Erlebnis kombiniert <b>spekulatives Storytelling</b> mit einem tiefen Einblick in die Ursachen von Hikikomori. Das Spiel <b>Zugzwang</b> setzt sich intensiv mit dem Leben als Hikikomori auseinander – es ist nicht als lockeres oder unterhaltsames Erlebnis gedacht. Wenn du aktuell an der Krankheit leidest und leicht reizbar bist, beachte bitte, dass dieses Spiel <b>drastische Darstellungen</b> von Menschen in sehr düsteren Situationen verwendet. Bei Suizidgefährdung beende bitte umgehend das Spiel und nutze diesen Link, um mit jemandem zu sprechen. 
+                    Das Spiel verfolgt zwei zentrale Ziele: Zum einen möchte ich deutlich veranschaulichen, wie es sich anfühlt, ein Hikikomori zu sein, sodass Menschen, die diese Erfahrung nicht kennen, besser nachvollziehen können, was damit verbunden ist. Dies soll helfen, das Bewusstsein zu schärfen und gegen <b>soziale Stigmatisierung</b> und Missverständnisse vorzugehen. Zum anderen hoffe ich, dass betroffene Personen durch die realitätsnahe Simulation erkennen, dass sie nicht alleine sind, und daraus <b>Trost und Unterstützung</b> schöpfen können.
+                    Ich bin mir bewusst, dass die Erfahrungen eines Hikikomori sehr individuell sind. Die Darstellung behauptet nicht, die „beste“ oder „exakteste“ zu sein, sondern fasst lediglich die Erlebnisse des Entwicklers und ihrer nahestehenden Personen zusammen. Das Spiel greift Themen wie Therapie, Medikamente, Liebesleben und den Zugang zu unterstützenden Netzwerken auf, denn viele Hikikomori suchen aus Gründen wie Geldmangel, vermeintlichem persönlichen Versagen oder öffentlicher Stigmatisierung gar keine Behandlung.
+                    Es ist wichtig zu erkennen, dass nicht jeder Hikikomori über den Luxus verfügt, den ich in diesem Spiel simulieren können – ich haben uns darauf konzentriert, den Umgang mit der Krankheit darzustellen, der umso herausfordernder wird, je schlechter es den Betroffenen geht.
+                    <b>Dieses Spiel verwendet Audio</b> als integralen Bestandteil des Gameplays – wir empfehlen, den Ton einzuschalten.
+                    <b>Vielen Dank fürs Spielen.</b>
+                    </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 2 -->
+          <section class="text-section" id="section2">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Hikikomori</h2>
+                </div>
+                <div class="section-text">
+                  <p><b>Hikikomori beschreibt sowohl ein Phänomen als auch eine Person</b>  (Teo & Gaw, 2010). Das japanische Ministerium für Gesundheit, Arbeit und Soziales (MHLW) definiert Hikikomori folgendermaßen:<b>"A phenomenon in which persons become recluses in their own homes, avoiding various social situations (e.g. attending school, working, having social interactions outside of the home etc.) for at least six months. They may go out without any social contact with others. In principle, hikikomori is considered a non-psychotic condition distinguished from social withdrawal due to positive or negative symptoms of schizophrenia. However, there is a possibility of underlying prodromal schizophrenia."</b> (MHLW, 2010, zitiert nach Tateno, Park, Kato, Umene-Nakano & Saito, 2012, S.1).
+                    Das Phänomen lässt sich in <b>primäres und sekundäres Hikikomori</b> unterteilen (Kato et al., 2012). <b>Primäres Hikikomori</b>  tritt ohne Begleitpsychopathologie auf</b> , während <b>sekundäres Hikikomori durch eine andere psychische Erkrankung verursacht wird.</b> 
+                    Auf Grundlage der MHLW-Definition (Tateno et al., 2012) basiert die Definition von Hikikomori auf folgenden Kriterien:<b>(a) Rückzug ins eigene Zuhause für mindestens 6 Monate, (b) fehlendes Interesse an Arbeit oder Schule, (c) keine Psychose, und (d) Vermeidung sozialer Situationen.</b> Da oft unklar bleibt, ob der soziale Rückzug zu einer psychischen Erkrankung oder umgekehrt führt, werden in dieser Arbeit beide Formen, primär und sekundär, berücksichtigt.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 3 -->
+          <!-- Abschnitt 3 -->
+<section class="text-section" id="section3">
+  <div class="section-content">
+    <hr class="section-line" />
+    <div class="section-body">
+      <div class="section-header">
+        <h2>Das Spiel</h2>
+      </div>
+      <div class="section-text">
+        <p>Das Spiel beginnt mit dem Eintritt in einen <b>geheimnisvollen Zufluchtsort</b>, der den Rückzugsort eines Hikikomori symbolisiert. Der Eingang öffnet sich wie ein Portal in die Dunkelheit und versetzt den Spieler sofort in eine Atmosphäre von <b>Isolation</b> und <b>innerem Konflikt</b>.
+
+          <b>Einstieg in die Dunkelheit</b>
+          Beim Betreten umfängt den Spieler ein fast greifbares Schweigen – ein Spiegelbild des inneren Rückzugs. Ein erstes, warmes Licht weist auf die Wahl hin: <b>weiter in die Dunkelheit vorstoßen</b> oder umkehren.
+          
+          <b>Der Pfad ins Unbekannte</b>
+          Das Licht dient als symbolischer Führer, während der Spieler zwischen <b>sicherer, vertrauter Isolation</b> und der <b>bedrohlichen Ungewissheit</b> der Außenwelt wählen muss.
+          
+          <b>Japanischer Steingarten</b>
+          Ein Raum, nachempfunden einem traditionellen Steingarten, steht für den <b>Konformitätszwang</b> und die ständigen gesellschaftlichen Erwartungen, denen Hikikomori ausgesetzt sind.
+          
+          <b>Finaler Zugzwang</b>
+          Am Ende entscheidet der Spieler zwischen:
+          
+          <b>Rückzug in das „du Klee Reich“</b>: Kurzfristige Sicherheit, aber langfristiger Stillstand.
+          
+          <b>Schritt in eine abstoßende Welt</b>: Mut, sich den Herausforderungen einer ablehnenden Gesellschaft zu stellen – mit dem Preis ständiger Überwindung.
+          
+          Unabhängig von der Wahl steht das Spiel für den inneren <b>Zugzwang</b> – das Gefühl, dass jede Entscheidung mit Nachteilen verbunden ist und die Identitätskrise eines Hikikomori verdeutlicht.
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Hinweis außerhalb des regulären Inhalts -->
+  <div class="game-info">
+    <p>Dauer 10 Minuten, Die Verwendung von Kopfhörern wird empfohlen, Scrolle weiter um die Experience zu starten:</p>
+  </div>
+</section>
+
+        </div>
+      </div>
+    </div>
+
+<!-- Three.js Bereich -->
+<div id="three-container">
+  <canvas id="three-canvas"></canvas>
+</div>
+
+
+    <!-- Unsichtbarer Spacer für den Scrollbereich (Türanimation) -->
+    <div id="door-scroll-spacer"></div>
+    
+    <!-- UI-Overlay: HTML/CSS-Elemente für Fragetext und Antwortbuttons (initial verborgen) -->
+<!-- Overlay für Frage-Text und Antwortmöglichkeiten -->
+<div id="question-overlay" class="question-overlay">
+  <div class="overlay-content">
+    <p id="question-text">Hier steht dein statischer Fragetext</p>
+    <div class="button-container">
+      <button class="answer-btn" data-answer="1">Antwort 1</button>
+      <button class="answer-btn" data-answer="2">Antwort 2</button>
+    </div>
+  </div>
+</div>
+    
+<!-- Footer, der immer sichtbar ist -->
+<footer class="site-footer">
+  <div class="footer-left">
+    <a href=#" class="footer-link" id="open-about">About</a>
+  </div>
+  <div class="footer-center">
+    <!-- Bei Klick wird das Overlay geöffnet -->
+    <a href="index copy.html" class="footer-link" id="">ZUGZWANG</a>
+  </div>
+  <div class="footer-right">
+    <button id="music-button" class="music-button">
+      <div class="bars-container music-button-bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </button>
+  </div>
+</footer>
+
+
+
+
+  <!-- Cursor Mask Element -->
+  <div class="cursor-mask"></div>
+
+<!-- About Modal Overlay -->
+<div id="about-modal" class="about-modal">
+  <div class="scroll-container">
+    <!-- Anstelle der Zahl in der numbers-container: Close-Button -->
+    <div class="numbers-container">
+      <button class="number about-close">×</button>
+    </div>
+    <div class="text-sections">
+      <section class="text-section">
+        <div class="section-content">
+          <hr class="section-line" />
+          <div class="section-body">
+            <div class="section-header">
+              <h2>Über Uns</h2>
+            </div>
+            <div class="section-text">
+              <p>
+                Hier kannst Du den Inhalt Deiner About-Seite einfügen. Der Text,
+                die Überschrift sowie die horizontale Linie sind exakt im gleichen
+                Stil wie in Section 1 umgesetzt.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <script src="index.js"></script>
+  </body>
+</html>
+

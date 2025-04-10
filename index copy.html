@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zugzwang – Content ohne Three.js</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Beispielhafte Animationen – bitte an Deine Vorstellungen und ggf. an andere CSS-Regeln anpassen */
+      .number {
+        transition: transform 0.5s, opacity 0.5s;
+      }
+      /* Ausgangszustand für hereinrutschende Zahl */
+      .enter-up {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      /* Endzustand: Zahl rückt nach oben und wird aktiv */
+      .active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      /* Animation für die Zahl, die nach oben verschwindet */
+      .exit-up {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-background">
+        <a href="index.html" class="header-link">
+          <h1 class="header-title">ZUGZWANG</h1>
+        </a>
+      </div>
+    </header>
+    
+    <div class="text-content">
+      <div class="scroll-container">
+        <!-- Sticky Zahlen-Container -->
+        <div class="numbers-container">
+          <div class="number" id="num1">1</div>
+          <div class="number" id="num2">2</div>
+          <div class="number" id="num3">3</div>
+          <div class="number" id="num4">4</div>
+          <div class="number" id="num5">5</div>
+          <div class="number" id="num6">6</div>
+          <div class="number" id="num7">7</div>
+          <div class="number" id="num8">8</div>
+          <div class="number" id="num9">9</div>
+          <div class="number" id="num10">10</div>
+        </div>
+        <!-- Scrollbare Textabschnitte -->
+        <div class="text-sections">
+          <!-- Hier folgen die 10 Textabschnitte wie zuvor; Beispiel: -->
+          <!-- Abschnitt 1 -->
+          <section class="text-section" id="section1">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Hikikomori</h2>
+                </div>
+                <div class="section-text">
+                  <p>Dieses interaktive Web-Erlebnis kombiniert <b>spekulatives Storytelling</b> mit einem tiefen Einblick in die Ursachen von Hikikomori. Das Spiel <b>Zugzwang</b> setzt sich intensiv mit dem Leben als Hikikomori auseinander – es ist nicht als lockeres oder unterhaltsames Erlebnis gedacht. Wenn du aktuell an der Krankheit leidest und leicht reizbar bist, beachte bitte, dass dieses Spiel <b>drastische Darstellungen</b> von Menschen in sehr düsteren Situationen verwendet. Bei Suizidgefährdung beende bitte umgehend das Spiel und nutze diesen Link, um mit jemandem zu sprechen. 
+                    Das Spiel verfolgt zwei zentrale Ziele: Zum einen möchte ich deutlich veranschaulichen, wie es sich anfühlt, ein Hikikomori zu sein, sodass Menschen, die diese Erfahrung nicht kennen, besser nachvollziehen können, was damit verbunden ist. Dies soll helfen, das Bewusstsein zu schärfen und gegen <b>soziale Stigmatisierung</b> und Missverständnisse vorzugehen. Zum anderen hoffe ich, dass betroffene Personen durch die realitätsnahe Simulation erkennen, dass sie nicht alleine sind, und daraus <b>Trost und Unterstützung</b> schöpfen können.
+                    Ich bin mir bewusst, dass die Erfahrungen eines Hikikomori sehr individuell sind. Die Darstellung behauptet nicht, die „beste“ oder „exakteste“ zu sein, sondern fasst lediglich die Erlebnisse des Entwicklers und ihrer nahestehenden Personen zusammen. Das Spiel greift Themen wie Therapie, Medikamente, Liebesleben und den Zugang zu unterstützenden Netzwerken auf, denn viele Hikikomori suchen aus Gründen wie Geldmangel, vermeintlichem persönlichen Versagen oder öffentlicher Stigmatisierung gar keine Behandlung.
+                    Es ist wichtig zu erkennen, dass nicht jeder Hikikomori über den Luxus verfügt, den ich in diesem Spiel simulieren können – ich haben uns darauf konzentriert, den Umgang mit der Krankheit darzustellen, der umso herausfordernder wird, je schlechter es den Betroffenen geht.
+                    <b>Dieses Spiel verwendet Audio</b> als integralen Bestandteil des Gameplays – wir empfehlen, den Ton einzuschalten.
+                    <b>Vielen Dank fürs Spielen.</b>
+                    </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 2 -->
+          <section class="text-section" id="section2">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Begriff Hikimori</h2>
+                </div>
+                <div class="section-text">
+                  <p><b>Hikikomori beschreibt sowohl ein Phänomen als auch eine Person</b>  (Teo & Gaw, 2010). Das japanische Ministerium für Gesundheit, Arbeit und Soziales (MHLW) definiert Hikikomori folgendermaßen:<b>"A phenomenon in which persons become recluses in their own homes, avoiding various social situations (e.g. attending school, working, having social interactions outside of the home etc.) for at least six months. They may go out without any social contact with others. In principle, hikikomori is considered a non-psychotic condition distinguished from social withdrawal due to positive or negative symptoms of schizophrenia. However, there is a possibility of underlying prodromal schizophrenia."</b> (MHLW, 2010, zitiert nach Tateno, Park, Kato, Umene-Nakano & Saito, 2012, S.1).
+                    Das Phänomen lässt sich in <b>primäres und sekundäres Hikikomori</b> unterteilen (Kato et al., 2012). <b>Primäres Hikikomori</b>  tritt ohne Begleitpsychopathologie auf</b> , während <b>sekundäres Hikikomori durch eine andere psychische Erkrankung verursacht wird.</b> 
+                    Auf Grundlage der MHLW-Definition (Tateno et al., 2012) basiert die Definition von Hikikomori auf folgenden Kriterien:<b>(a) Rückzug ins eigene Zuhause für mindestens 6 Monate, (b) fehlendes Interesse an Arbeit oder Schule, (c) keine Psychose, und (d) Vermeidung sozialer Situationen.</b> Da oft unklar bleibt, ob der soziale Rückzug zu einer psychischen Erkrankung oder umgekehrt führt, werden in dieser Arbeit beide Formen, primär und sekundär, berücksichtigt.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 3 -->
+          <section class="text-section" id="section3">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Abgrenzung</h2>
+                </div>
+                <div class="section-text">
+                  <p><b>Das Phänomen Hikikomori ist klar definiert</b> , weshalb in dieser Arbeit auf eine umfassende Abgrenzung aller ähnlichen Begriffe verzichtet wird. <b>Allein der Begriff NEET wird abgegrenzt</b> , da NEETs eine übergeordnete Gruppe darstellen können und in der Schweiz vom Bundesamt für Statistik (BFS) erfasst werden.
+                    <b>"Der Begriff NEET bezieht sich auf alle Menschen, welche in keiner Ausbildung oder Anstellung sind"</b>  (Furlong, 2008). Dazu zählen Personen, die aus familiären oder persönlichen Gründen nicht arbeiten können oder wollen, die Rekrutenschule besuchen, nur passiv arbeitssuchend sind, auf den Stellenantritt warten oder arbeitsunfähig sind</b>  (BFS, 2019).
+                    Dabei wird keine Aussage darüber getroffen, ob sich die Person sozial isoliert oder nicht. Somit ist der Begriff NEET nicht deckungsgleich mit Hikikomori, wenngleich bei landesweiten Erhebungen davon auszugehen ist, dass Hikikomori unter den NEETs erfasst werden.</b> </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 4 -->
+          <section class="text-section" id="section4">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Symptomatik</h2>
+                </div>
+                <div class="section-text">
+                  <p>Die Ursachen von Hikikomori sind vielschichtig und umfassen <b>individuelle, familiäre und gesellschaftliche Faktoren</b>.
+
+                    <b>Kindheitserfahrungen</b> wie emotionale Vernachlässigung (91 %) und Mobbing (56 %) sind häufig (Hattori, 2006; Lee et al., 2013). Viele Betroffene zeigen <b>unsichere oder ambivalente Bindungsmuster</b> (Hattori, 2006; Krieg & Dickie, 2011).
+                    
+                    <b>Familiäre Belastungen</b> wie geringe Organisation, emotionale Distanz und psychische Erkrankungen der Eltern erhöhen das Risiko (Lee et al., 2013; Umeda et al., 2012).
+                    
+                    Auch <b>psychische Störungen</b> wie Depressionen oder soziale Phobie spielen eine Rolle (Lee et al., 2013).
+                    
+                    <b>Soziokulturell</b> begünstigen Leistungsdruck, finanzielle Unterstützung durch Eltern und das <b>Amae-Konzept</b> den Rückzug (Furlong, 2008; Tateno et al., 2012).
+                    
+                    Laut Li & Wong (2015) entwickeln sich Rückzüge schleichend – je nach <b>Bindungsmuster und Autonomiedefizit</b> – und verlaufen in unterschiedlichen sozialen Dynamiken.</p>
+                    
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 5 -->
+          <section class="text-section" id="section5">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Entstehung</h2>
+                </div>
+                <div class="section-text">
+                  <p>Die Ursachen von Hikikomori sind vielschichtig und beinhalten <b>individuelle, familiäre und soziokulturelle Faktoren</b>.
+
+                    <b>Belastende Kindheitserfahrungen</b> wie emotionale Vernachlässigung (91 %) und Mobbing (56 %) sind häufig (Hattori, 2006; Lee et al., 2013).
+                    
+                    Ein <b>unsicherer Bindungsstil</b>, meist geprägt durch Zurückweisung und Überbehütung, ist verbreitet (Hattori, 2006; Krieg & Dickie, 2011).
+                    
+                    <b>Familiäre Faktoren</b> wie mangelnder Zusammenhalt, elterliche Konflikte und psychische Erkrankungen der Eltern erhöhen das Risiko (Lee et al., 2013; Umeda et al., 2012).
+                    
+                    Auch <b>psychische Erkrankungen</b> wie Depression oder soziale Phobie können eine Rolle spielen.
+                    
+                    <b>Soziokulturell</b> begünstigen Leistungsdruck, finanzielle Abhängigkeit und das <b>Amae-Konzept</b> den Rückzug (Tateno et al., 2012).
+                    
+                    Laut Li & Wong (2015) entwickelt sich der Rückzug <b>schrittweise</b> in drei Typen: <b>übermäßig dependente</b>, <b>maladaptiv interdependente</b> und <b>counterdependente</b> Personen.</p>
+                    
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 6 -->
+          <section class="text-section" id="section6">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Verlauf</h2>
+                </div>
+                <div class="section-text">
+                  <p><b>Frühes Warnsignal</b>: Über die Hälfte der Hikikomori verweigern den Schulbesuch (Kondo et al., 2013). Die Länge der Isolation beeinflusst den Verlauf kaum, aber frühe Interventionen verbessern die Prognose (Hattori, 2006).</p>
+
+                  <p><b>Behandlungsprobleme</b>: Viele nehmen keine Hilfe an, was die Heilung erschwert. Nur rund 15 % erreichen nach 1–2 Jahren soziale Reintegration (Malagón-Amor et al., 2018).</p>
+
+                  <p><b>Therapieformen</b>: Kombination aus Psychotherapie, Medikamenten, Exposition, Familienarbeit, Berufsförderung und aufsuchender Behandlung. Therapie dauert oft über 2 Jahre.</p>
+
+                  <p><b>Beziehungsaufbau</b>: Vertrauen entwickelt sich langsam (6–12 Monate), da viele misstrauisch und wenig einsichtig sind (Hattori, 2006).</p>
+
+                  <p><b>Phasenmodell</b>: Fokus auf Emotionen, Identität, Bindung, soziale Teilhabe (Hattori, MHLW). Familienarbeit bleibt trotz Kritik relevant (Saito, 2013).</p>
+
+                  <p><b>Intensive Therapie</b> kann Vertrauen, Einsicht und soziale Teilhabe verbessern (Malagón-Amor et al., 2018).</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 7 -->
+          <section class="text-section" id="section7">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Überschrift 7</h2>
+                </div>
+                <div class="section-text">
+                  <img src="/img/hikikomori model.jpeg" alt="Bildbeschreibung" class="section-image" />
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 8 -->
+          <section class="text-section" id="section8">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Überschrift 8</h2>
+                </div>
+                <div class="section-text">
+                  <img src="/img/hikikomori-is-not-a-medical-diagnosis-what-is-hikikomori-v0-pige3fkzynfd1.webp" alt="Bildbeschreibung" class="section-image" />
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 9 -->
+          <section class="text-section" id="section9">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Zugzwang</h2>
+                </div>
+                <div class="section-text">
+                  <p>
+                    Der Begriff <b>Zugzwang</b> stammt ursprünglich aus dem Schach und beschreibt eine Situation, in der ein Spieler gezwungen ist, einen Zug zu machen, der seine Stellung unweigerlich verschlechtert. Diese Idee bildet die Grundlage der Metapher in unserem Spiel: Auch im Alltag eines Hikikomori scheint es <b>keine befreienden Optionen</b> zu geben, da sozialer Druck und traditionelle Erwartungen den Betroffenen nur nachteilige „Züge“ aufzwingen. Während die Gesellschaft häufig auf normative Verhaltensmuster pocht und Ratschläge erteilt, die wenig zur Überwindung ihrer individuellen Krise beitragen, entscheiden sich manche Hikikomori dafür, den konventionellen Weg zu verlassen. Dieser unkonventionelle Ausweg soll dem Gefühl des ständigen Zwangs entkommen – auch wenn das bedeutet, von der Mehrheit abgelehnt zu werden. Somit wird <b>Zugzwang</b> zu einer treffenden Metapher für den inneren Konflikt, in dem der einzig überlebensfähige Schritt manchmal darin besteht, sich aktiv gegen gesellschaftliche Erwartungen zu stellen und einen eigenen, wenn auch unkonventionellen Weg zu gehen.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Abschnitt 10 -->
+          <section class="text-section" id="section10">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Das Spiel</h2>
+                </div>
+                <div class="section-text">
+                  <p>Das Spiel beginnt mit dem Eintritt in einen <b>geheimnisvollen Zufluchtsort</b>, der den Rückzugsort eines Hikikomori symbolisiert. Der Eingang öffnet sich wie ein Portal in die Dunkelheit und versetzt den Spieler sofort in eine Atmosphäre von <b>Isolation</b> und <b>innerem Konflikt</b>.
+
+                    <b>Einstieg in die Dunkelheit</b>
+                    Beim Betreten umfängt den Spieler ein fast greifbares Schweigen – ein Spiegelbild des inneren Rückzugs. Ein erstes, warmes Licht weist auf die Wahl hin: <b>weiter in die Dunkelheit vorstoßen</b> oder umkehren.
+                    
+                    <b>Der Pfad ins Unbekannte</b>
+                    Das Licht dient als symbolischer Führer, während der Spieler zwischen <b>sicherer, vertrauter Isolation</b> und der <b>bedrohlichen Ungewissheit</b> der Außenwelt wählen muss.
+                    
+                    <b>Japanischer Steingarten</b>
+                    Ein Raum, nachempfunden einem traditionellen Steingarten, steht für den <b>Konformitätszwang</b> und die ständigen gesellschaftlichen Erwartungen, denen Hikikomori ausgesetzt sind.
+                    
+                    <b>Finaler Zugzwang</b>
+                    Am Ende entscheidet der Spieler zwischen:
+                    
+                    <b>Rückzug in das „du Klee Reich“</b>: Kurzfristige Sicherheit, aber langfristiger Stillstand.
+                    
+                    <b>Schritt in eine abstoßende Welt</b>: Mut, sich den Herausforderungen einer ablehnenden Gesellschaft zu stellen – mit dem Preis ständiger Überwindung.
+                    
+                    Unabhängig von der Wahl steht das Spiel für den inneren <b>Zugzwang</b> – das Gefühl, dass jede Entscheidung mit Nachteilen verbunden ist und die Identitätskrise eines Hikikomori verdeutlicht.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Overlay für Frage-Text und Antwortmöglichkeiten -->
+    <div id="question-overlay" class="question-overlay">
+      <div class="overlay-content">
+        <p id="question-text">Hier steht dein statischer Fragetext</p>
+        <div class="button-container">
+          <button class="answer-btn" data-answer="1">Antwort 1</button>
+          <button class="answer-btn" data-answer="2">Antwort 2</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer, der immer sichtbar ist -->
+    <footer class="site-footer">
+      <div class="footer-left">
+        <a href="#" class="footer-link"id ="open-about">About</a>
+      </div>
+      <div class="footer-center">
+        <!-- About-Link, der das Overlay öffnet -->
+        <a href="index.html" class="footer-link" id="open-about">Hochschule München&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Projekt Japan 2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jakob Giggenach</a>
+      </div>
+      <div class="footer-right">
+        <button id="music-button" class="music-button">
+          <div class="bars-container music-button-bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </button>
+      </div>
+    </footer>
+    
+    <!-- Cursor Mask Element -->
+    <div class="cursor-mask"></div>
+    
+    <!-- About Modal Overlay -->
+    <div id="about-modal" class="about-modal">
+      <div class="scroll-container">
+        <div class="numbers-container">
+          <button class="number about-close">×</button>
+        </div>
+        <div class="text-sections">
+          <section class="text-section">
+            <div class="section-content">
+              <hr class="section-line" />
+              <div class="section-body">
+                <div class="section-header">
+                  <h2>Über Uns</h2>
+                </div>
+                <div class="section-text">
+                  <p>
+                    Hier kannst Du den Inhalt Deiner About-Seite einfügen.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Öffnen und Schließen des About-Overlays
+      document.getElementById('open-about').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('about-modal').style.display = 'block';
+      });
+      
+      document.querySelector('.about-close').addEventListener('click', function () {
+        document.getElementById('about-modal').style.display = 'none';
+      });
+      
+      // Zahlen aus dem Sticky-Bereich ermitteln
+      const sections = document.querySelectorAll('.text-section');
+      const numbers = [];
+      for (let i = 1; i <= 10; i++) {
+        numbers.push(document.getElementById('num' + i));
+      }
+      
+      let activeSectionIndex = 0;
+      let lastScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Animationsübergang: Alte Zahl verlässt (fliegt nach oben) und neue Zahl kommt von unten herein.
+      function animateTransition(oldIndex, newIndex) {
+        // Alte Zahl animieren (fliegt nach oben)
+        if (numbers[oldIndex]) {
+          numbers[oldIndex].classList.remove('active');
+          numbers[oldIndex].classList.add('exit-up');
+          // Nach Ende der Transition den exit-up-Zustand zurücksetzen
+          numbers[oldIndex].addEventListener('transitionend', function handler() {
+            numbers[oldIndex].classList.remove('exit-up');
+            numbers[oldIndex].removeEventListener('transitionend', handler);
+          });
+        }
+        // Neue Zahl initial als "enter-up" setzen und kurz darauf aktiv machen (vom unteren Startpunkt aus animieren)
+        if (numbers[newIndex]) {
+          numbers[newIndex].classList.add('enter-up');
+          // Erzwinge ein Reflow, damit die Klasse übernommen wird
+          numbers[newIndex].offsetHeight;
+          numbers[newIndex].classList.remove('enter-up');
+          numbers[newIndex].classList.add('active');
+        }
+      }
+      
+      function updateActiveSection() {
+        const centerY = window.innerHeight / 2;
+        let newIndex = activeSectionIndex;
+      
+        sections.forEach((section, index) => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= centerY && rect.bottom >= centerY) {
+            newIndex = index;
+          }
+        });
+      
+        const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+        const direction = currentScrollPos > lastScrollPos ? 'down' : 'up';
+        lastScrollPos = currentScrollPos;
+      
+        if (newIndex !== activeSectionIndex) {
+          const oldIndex = activeSectionIndex;
+          activeSectionIndex = newIndex;
+          animateTransition(oldIndex, activeSectionIndex);
+        }
+      }
+      
+      document.addEventListener('scroll', updateActiveSection);
+      
+      // Initialisiere den ersten Zustand:
+      if (numbers[0]) {
+        numbers[0].classList.add('active');
+      }
+      
+      // Cursor mask folgt dem Mauszeiger
+      const cursorMask = document.querySelector('.cursor-mask');
+      document.addEventListener('mousemove', (e) => {
+        cursorMask.style.left = `${e.clientX}px`;
+        cursorMask.style.top = `${e.clientY}px`;
+      });
+      
+      // Zusätzliche Event-Listener können hier ergänzt werden.
+    </script>
+  </body>
+</html>
